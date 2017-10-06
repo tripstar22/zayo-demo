@@ -12,11 +12,11 @@ export class AppComponent implements OnInit, AfterViewChecked {
 
   constructor() {}
   
-  // append a row for revenue item
+  // append a row
   appendRow(e) {
     // get event target
     const trgt = e.target;
-    // delete row
+    // get trgt row in order to delete
     const trgtRow = trgt.parentNode.parentNode;
     // create table row el
     const elRow = document.createElement('tr');
@@ -257,7 +257,8 @@ export class AppComponent implements OnInit, AfterViewChecked {
     const elContMargin = document.getElementById('contributionMarginTotal'); 
     let contMargin = (totalCont / revTotal) * 100;
     // make sure formatted with two decimal places
-    let strContMargin = contMargin.toFixed(2);
+    let newVal = Math.round(contMargin);
+    let strContMargin = newVal.toString();
     elContMargin.innerHTML = strContMargin;
 
     // captial roi (months)
@@ -273,7 +274,7 @@ export class AppComponent implements OnInit, AfterViewChecked {
     // get capital roi
     let capRoi = (totalExpOT - totalRevOT) / totalCM;
     // make sure formated with two decimal places
-    let strCapRoi = capRoi.toFixed(2);
+    let strCapRoi = capRoi.toFixed(1);
     elCapRoi.innerHTML = strCapRoi;
   }
 
