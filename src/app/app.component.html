@@ -1,20 +1,131 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{title}}!
-  </h1>
-  <img width="300" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <table id="tableRoi">
+                <tr>
+                    <th>Item</th>
+                    <th>One Time</th>
+                    <th>Monthly</th>
+                    <th>Options</th>
+                </tr>
+                <tr>
+                    <td contenteditable>Item 1</td>
+                    <td>&#36;<span class="revOneTime" contenteditable (blur)="rev($event); financialReport($event); valMonetary($event)">100.00</span></td>
+                    <td>&#36;<span class="revMonthly" contenteditable (blur)="rev($event); financialReport($event); valMonetary($event)">50.00</span></td>
+                    <td><button class="btn btn-primary" (click)="deleteRow($event)">Delete</button></td>
+                </tr>
+                <tr>
+                    <td contenteditable>Item 2</td>
+                    <td>&#36;<span class="revOneTime" contenteditable (blur)="rev($event); financialReport($event); valMonetary($event)">50.00</span></td>
+                    <td>&#36;<span class="revMonthly" contenteditable (blur)="rev($event); financialReport($event)">25.00</span></td>
+                    <td><button class="btn btn-primary" (click)="deleteRow($event)">Delete</button></td>
+                </tr>
+                <tr>
+                    <td contenteditable>Item 3</td>
+                    <td>&#36;<span class="revOneTime" contenteditable (blur)="rev($event); financialReport($event); valMonetary($event)">25.00</span></td>
+                    <td>&#36;<span class="revMonthly" contenteditable (blur)="rev($event); financialReport($event); valMonetary($event)">85.00</span></td>
+                    <td><button class="btn btn-primary" (click)="deleteRow($event)">Delete</button></td>
+                </tr>
+                <tr id="lastRevenue" class="revenue">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><button class="btn btn-primary" (click)="appendRow($event)">Add Revenue Item</button></td>
+                </tr>
+                <!-- spacer row -->
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <!-- end spacer row -->
+                <tr>
+                    <td contenteditable>Expense 1</td>
+                    <td>&#36;<span class="expOneTime" contenteditable (blur)="exp($event); financialReport($event); valMonetary($event)">500.00</span></td>
+                    <td>&#36;<span class="expMonthly" contenteditable (blur)="exp($event); financialReport($event); valMonetary($event)">20.00</span></td>
+                    <td><button class="btn btn-primary" (click)="deleteRow($event)">Delete</button></td>
+                </tr>
+                <tr>
+                    <td contenteditable>Expense 2</td>
+                    <td>&#36;<span class="expOneTime" contenteditable (blur)="exp($event); financialReport($event); valMonetary($event)">200.00</span></td>
+                    <td>&#36;<span class="expMonthly" contenteditable (blur)="exp($event); financialReport($event); valMonetary($event)">40.00</span></td>
+                    <td><button class="btn btn-primary" (click)="deleteRow($event)">Delete</button></td>
+                </tr>
+                <tr id="lastExpenses" class="expenses">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><button class="btn btn-primary" (click)="appendRow($event)">Add Expense Item</button></td>
+                </tr>
+                <!-- spacer row -->
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <!-- end spacer row -->
+                <tr>
+                    <td></td>
+                    <td class="itemBold">One Time</td>
+                    <td class="itemBold">Monthy</td>
+                    <td class="itemBold">Total</td>
+                </tr>
+                <tr>
+                    <td class="itemBold">Revenue</td>
+                    <td class="itemBold">&#36;<span id="totalRevOneTime"></span></td>
+                    <td class="itemBold">&#36;<span id="totalRevMonthly"></span></td>
+                    <td class="itemBold">&#36;<span id="totalRev"></span></td>
+                </tr>
+                <tr>
+                    <td class="itemBold">Expenses</td>
+                    <td class="itemBold">&#36;<span id="totalExpensesOneTime"></span></td>
+                    <td class="itemBold">&#36;<span id="totalExpensesMonthly"></span></td>
+                    <td class="itemBold">&#36;<span id="totalExpenses"></span></td>
+                </tr>
+                <!-- spacer row -->
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <!-- end spacer row -->
+                <tr>
+                    <td class="itemBold">Contribution Profit</td>
+                    <td></td>
+                    <td class="itemBold">&#36;<span id="contributionProfitMonthly"></span></td>
+                    <td class="itemBold">&#36;<span id="contributionProfitTotal"></span></td>
+                </tr>
+                <tr>
+                    <td class="itemBold">Contribution Margin</td>
+                    <td></td>
+                    <td></td>
+                    <td class="itemBold"><span id="contributionMarginTotal"></span>&#37;</td>
+                </tr>
+                <tr>
+                    <td class="itemBold"><span class="caps">roi</span> &#40;Months&#41;</td>
+                    <td></td>
+                    <td></td>
+                    <td class="itemBold"><span id="capitalRoi"></span></td>
+                </tr>
+                <!-- spacer rows -->
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <!-- end spacer rows -->
+            </table>
+        </div>
+    </div>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
 
